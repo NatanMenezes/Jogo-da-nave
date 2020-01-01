@@ -2,7 +2,7 @@ var dx,dy //direções
 var nave, bomba, barra, bala, att1, att2, velT
 var vel, posX, posY, jogo, mudaX, mudaY, frame, lgTela, alTela;
 var tecla
-//var tiros, pt, tam
+
 
 function teclaDw(){
      tecla = event.keyCode
@@ -61,6 +61,7 @@ function controlaJog(){
 function loop(){
     if(jogo){
         controlaJog()
+        controleTiros()
     }
     frame = requestAnimationFrame(loop)
 }
@@ -77,6 +78,18 @@ function tiro(x,y){
     bala.setAttributeNode(att1)
     bala.setAttributeNode(att2)
     document.body.appendChild(bala)
+}
+function controleTiros(){
+    var tiros = document.getElementsByClassName('tiro')
+    var tam = tiros.length
+    for(var i = 0; i < tam; i++){
+        if(tiros[i]){
+            var pt = tiros[i].offsetTop
+            pt -= velt
+            tiros[i].style.top = pt+'px'
+        }
+    }
+
 }
 
 
