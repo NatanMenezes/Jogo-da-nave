@@ -2,6 +2,8 @@ var dx,dy //direções
 var nave, bomba, barra, bala, att1, att2, velT
 var vel, posX, posY, jogo, mudaX, mudaY, frame, lgTela, alTela;
 var tecla
+var contbombas, painel, bombastotal, velB
+var vida, tmpq
 
 
 function teclaDw(){
@@ -16,7 +18,7 @@ function teclaDw(){
     }else if(tecla == 40){
         dy = 1
     }else if(tecla == 32){
-        tiro(posX+170,posY)
+        tiro(posX+160,posY)
     }
 
 }
@@ -34,12 +36,16 @@ function inicia(){
     nave = document.getElementById('imgnave')
     bomba = document.getElementById('missel')
     barra = document.getElementById('barra')
+
+    alTela = window.innerHeight
+    lgTela = window.innerWidth
     
 
     dx = dy = 0
 
-    vel = 5
-    velt = 8
+    vel = 6
+    velt = 9
+    velB = 3
 
     posX= window.innerWidth/2
     posY= window.innerHeight/2
@@ -47,9 +53,16 @@ function inicia(){
     nave.style.top += posY+'px'
     nave.style.left += posX+'px'
 
+    vida = 250
+
+    contbombas= 50
+
+    tmpq = setInterval(criaBomba, 2000)
     loop()
 
 }
+
+
 function controlaJog(){
 
     posX += dx*vel
@@ -62,6 +75,7 @@ function loop(){
     if(jogo){
         controlaJog()
         controleTiros()
+        controlaBombas()
     }
     frame = requestAnimationFrame(loop)
 }
@@ -87,9 +101,46 @@ function controleTiros(){
             var pt = tiros[i].offsetTop
             pt -= velt
             tiros[i].style.top = pt+'px'
+            if(pt<0){
+                tiros[i].remove()
+            }
         }
+
     }
 
+}
+function criaBomba(){
+    if(jogo){
+        var y = 0
+        var x = Math.random()*lgTela-50
+        var bomba = document.createElement('img')
+        var atb1 = document.createAttribute('class')
+        var atb2 = document.createAttribute('style')
+        var atb3 = document.createAttribute('src')
+        atb1.value = 'imgmissel'
+        atb2.value = 'top: '+y+'px; left: '+x+'px;'
+        atb3.value = 'missel2.gif'
+        bomba.setAttributeNode(atb1)
+        bomba.setAttributeNode(atb2)
+        bomba.setAttributeNode(atb3)
+        document.body.appendChild(bomba)
+        contbombas--
+
+    }
+}
+function controlaBombas(){
+    bombastotal =document.getElementsByClassName('imgmissel')
+    var tamtot = bombastotal.length
+    for(var i = 0; i < tamtot; i++){
+        if(bombastotal[i]){
+            var posi = bombastotal[i].offsetTop
+            posi += velB
+            bombastotal[i].style.top = posi+'px'
+            if(posi > alTela){
+                bombastotal[i].remove()
+            }
+        }
+    }
 }
 
 
