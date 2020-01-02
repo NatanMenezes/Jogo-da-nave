@@ -6,7 +6,8 @@ var contbombas, painel, bombastotal, velB
 var vida, tmpq
 
 
-function teclaDw(){
+function teclaDw(){//Reconhece a solicitação das teclas pressionadas
+
      tecla = event.keyCode
 
     if(tecla == 37){
@@ -23,7 +24,7 @@ function teclaDw(){
 
 }
 
-function teclaUp(){
+function teclaUp(){//Para a nave quando a tecla é solta
 
     dx = 0
     dy = 0
@@ -31,7 +32,7 @@ function teclaUp(){
 }
 
 
-function inicia(){
+function inicia(){//Inicializa as variáveis, as posições iniciais e o loop
     jogo = true
     nave = document.getElementById('imgnave')
     bomba = document.getElementById('missel')
@@ -63,7 +64,7 @@ function inicia(){
 }
 
 
-function controlaJog(){
+function controlaJog(){//Muda a posição da nave com base no presssionament das teclas
 
     posX += dx*vel
     posY += dy*vel
@@ -71,7 +72,9 @@ function controlaJog(){
     nave.style.top = posY+'px'
     nave.style.left = posX+'px'
 }
-function loop(){
+
+
+function loop(){//Função principal, chama as funções e atualiza os procedimentos com o frame
     if(jogo){
         controlaJog()
         controleTiros()
@@ -79,11 +82,13 @@ function loop(){
     }
     frame = requestAnimationFrame(loop)
 }
+
+
 window.addEventListener('load', inicia)
 document.addEventListener('keydown', teclaDw)
 document.addEventListener('keyup', teclaUp)
 
-function tiro(x,y){
+function tiro(x,y){//Cria o tiro
     bala = document.createElement('div')
     att1 = document.createAttribute('class')
     att2 = document.createAttribute('style')
@@ -93,7 +98,9 @@ function tiro(x,y){
     bala.setAttributeNode(att2)
     document.body.appendChild(bala)
 }
-function controleTiros(){
+
+
+function controleTiros(){//Move e remove os tiros
     var tiros = document.getElementsByClassName('tiro')
     var tam = tiros.length
     for(var i = 0; i < tam; i++){
@@ -110,7 +117,9 @@ function controleTiros(){
     }
 
 }
-function criaBomba(){
+
+
+function criaBomba(){//Cria as bombas
     if(jogo){
         var y = 0
         var x = Math.random()*lgTela-50
@@ -129,9 +138,12 @@ function criaBomba(){
 
     }
 }
-function controlaBombas(){
+
+
+function controlaBombas(){//Move e remove as bombas
     bombastotal =document.getElementsByClassName('imgmissel')
     var tamtot = bombastotal.length
+
     for(var i = 0; i < tamtot; i++){
         if(bombastotal[i]){
             var posi = bombastotal[i].offsetTop
@@ -144,7 +156,7 @@ function controlaBombas(){
     }
 }
 
-function colisaoTiroBomba(tiro){
+function colisaoTiroBomba(tiro){//Remove os tiros e a bomba com a colisão
     var tamtot = bombastotal.length
 
     for(var i = 0; i < tamtot; i++){
