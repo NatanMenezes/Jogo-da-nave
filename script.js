@@ -101,6 +101,7 @@ function controleTiros(){
             var pt = tiros[i].offsetTop
             pt -= velt
             tiros[i].style.top = pt+'px'
+            colisaoTiroBomba(tiros[i])
             if(pt<0){
                 tiros[i].remove()
             }
@@ -138,6 +139,28 @@ function controlaBombas(){
             bombastotal[i].style.top = posi+'px'
             if(posi > alTela){
                 bombastotal[i].remove()
+            }
+        }
+    }
+}
+
+function colisaoTiroBomba(tiro){
+    var tamtot = bombastotal.length
+
+    for(var i = 0; i < tamtot; i++){
+        if(bombastotal[i]){
+            if(
+                (
+                    (tiro.offsetTop <= (bombastotal[i].offsetTop+60))&&
+                    ((tiro.offsetTop+6) >= (bombastotal[i].offsetTop))
+                )&&
+                (
+                    (tiro.offsetLeft <= (bombastotal[i].offsetLeft+60))&&
+                    ((tiro.offsetLeft + 6) >= (bombastotal[i].offsetLeft))
+                )
+            ){
+                bombastotal[i].remove()
+                tiro.remove()
             }
         }
     }
