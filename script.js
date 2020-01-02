@@ -4,6 +4,7 @@ var vel, posX, posY, jogo, mudaX, mudaY, frame, lgTela, alTela;
 var tecla
 var contbombas, painel, bombastotal, velB
 var vida, tmpq
+var ie
 
 
 function teclaDw(){//Reconhece a solicitação das teclas pressionadas
@@ -34,20 +35,25 @@ function teclaUp(){//Para a nave quando a tecla é solta
 
 function inicia(){//Inicializa as variáveis, as posições iniciais e o loop
     jogo = true
+
+    //Elementos
     nave = document.getElementById('imgnave')
     bomba = document.getElementById('missel')
     barra = document.getElementById('barra')
 
-    alTela = window.innerHeight
-    lgTela = window.innerWidth
+    alTela = window.innerHeight //Altura da tela
+    lgTela = window.innerWidth //Largura da tela
     
 
-    dx = dy = 0
+    dx = dy = 0 //Direções
 
-    vel = 6
-    velt = 9
-    velB = 3
+    vel = 6 //Velocidade da nave
+    velt = 9 //Velocidade do tiro
+    velB = 3 //Velocidade da bomba
 
+    ie = 0 //Índice de explosão
+
+    //Posição inicial da nave
     posX= window.innerWidth/2
     posY= window.innerHeight/2
 
@@ -58,8 +64,9 @@ function inicia(){//Inicializa as variáveis, as posições iniciais e o loop
 
     contbombas= 50
 
-    tmpq = setInterval(criaBomba, 2000)
-    loop()
+    tmpq = setInterval(criaBomba, 2000)// Cria bombas a cada 2 segundos
+
+    loop() // Chama o loop principal do jog
 
 }
 
@@ -171,6 +178,7 @@ function colisaoTiroBomba(tiro){//Remove os tiros e a bomba com a colisão
                     ((tiro.offsetLeft + 6) >= (bombastotal[i].offsetLeft))
                 )
             ){
+                animaExplosao(bombastotal[i].offsetLeft+60, bombastotal[i].offsetTop+60)
                 bombastotal[i].remove()
                 tiro.remove()
             }
@@ -179,3 +187,48 @@ function colisaoTiroBomba(tiro){//Remove os tiros e a bomba com a colisão
 }
 
 
+function animaExplosao(x, y){
+
+    //var explosao = document.createElement('div')
+    
+    //var img = document.createElement('img')
+    var som = document.createElement('audio')
+
+    //Atributos da div
+    //var att1 = document.createAttribute('class')
+    //var att2 = document.createAttribute('style')
+    //var att3 = document.createAttribute('id')
+
+    //Atributos da imagem
+    //var att4 = document.createAttribute('src')
+
+    //Atributos do som
+    var att5 = document.createAttribute('src')
+    var att6 = document.createAttribute('id')
+
+
+    //att1.value = 'explosao'
+    //att2.value = `top:${y};left${x}px;`
+    //att3.value = 'exp'+ie
+    //att4.value = `explosao.gif`
+    att5.value = 'somexp.wav'
+    att6.value = 'som'+ie
+
+    //Adicionando os atributos aos seus respectivos elementos
+    //explosao.setAttributeNode(att1)
+    //explosao.setAttributeNode(att2)
+    //explosao.setAttributeNode(att3)
+    //img.setAttributeNode(att4)
+    som.setAttributeNode(att5)
+    som.setAttributeNode(att6)
+
+    //Adicionanado os elementos nos lugares corretos
+    //explosao.appendChild(img)
+    //explosao.appendChild(som)
+    document.body.appendChild(som)
+
+    document.getElementById('som'+ie).play()
+    ie++
+
+
+}
