@@ -189,46 +189,22 @@ function colisaoTiroBomba(tiro){//Remove os tiros e a bomba com a colisão
 
 function animaExplosao(x, y){
 
-    //var explosao = document.createElement('div')
-    
-    //var img = document.createElement('img')
     var som = document.createElement('audio')
 
-    //Atributos da div
-    //var att1 = document.createAttribute('class')
-    //var att2 = document.createAttribute('style')
-    //var att3 = document.createAttribute('id')
-
-    //Atributos da imagem
-    //var att4 = document.createAttribute('src')
 
     //Atributos do som
     var att5 = document.createAttribute('src')
     var att6 = document.createAttribute('id')
 
-
-    //att1.value = 'explosao'
-    //att2.value = `top:${y};left${x}px;`
-    //att3.value = 'exp'+ie
-    //att4.value = `explosao.gif`
-    att5.value = 'somexp.wav'
+    att5.value = 'somexp2.mp3'
     att6.value = 'som'+ie
 
-    //Adicionando os atributos aos seus respectivos elementos
-    //explosao.setAttributeNode(att1)
-    //explosao.setAttributeNode(att2)
-    //explosao.setAttributeNode(att3)
-    //img.setAttributeNode(att4)
     som.setAttributeNode(att5)
     som.setAttributeNode(att6)
 
-    //Adicionanado os elementos nos lugares corretos
-    //explosao.appendChild(img)
-    //explosao.appendChild(som)
     document.body.appendChild(som)
 
     document.getElementById('som'+ie).play()
     ie++
-
 
 }
