@@ -5,6 +5,7 @@ var tecla
 var contbombas, painel, bombastotal, velB
 var vida, tmpq
 var ie
+var btnV, btnD, btnI, painelV, painelD, painelI,medidor
 
 
 function teclaDw(){//Reconhece a solicitação das teclas pressionadas
@@ -32,14 +33,55 @@ function teclaUp(){//Para a nave quando a tecla é solta
 
 }
 
+function comecaJogo(){
+    jogo = true
+
+    painelI.style.display = 'none'
+    painelD.style.display = 'none'
+    painelV.style.display = 'none'
+    medidor.style.display = 'block'
+    nave.style.display = 'block'
+
+}
+
+function gerenciaGame(){
+    barra.style.width = vida+'px'
+    if(vida <=0){
+        painelD.style.display = 'block'
+        jogo = false
+        bombastotal.style.display = 'none'
+        nave.style.display = 'none'
+        medidor.style.display = 'none'
+    }
+    if(contbombas <= 0){
+        painelV.style.display = 'block'
+        jogo = false
+        bombastotal.style.display = 'none'
+        nave.style.display = 'none'
+        medidor.style.display = 'none'
+    }
+}
+
+
+
 
 function inicia(){//Inicializa as variáveis, as posições iniciais e o loop
-    jogo = true
+    jogo = false
 
     //Elementos
     nave = document.getElementById('imgnave')
     bomba = document.getElementById('missel')
     barra = document.getElementById('barra')
+    medidor = document.getElementById('medidor')
+    btnD = document.getElementById('btnDer')
+    btnV = document.getElementById('btnVit')
+    btnI = document.getElementById('btnIni')
+    painelD = document.getElementById('msgDerrota')
+    painelI = document.getElementById('msgInicial')
+    painelV = document.getElementById('msgVitoria')
+
+    nave.style.display = 'none'
+    medidor.style.display = 'none'
 
     alTela = window.innerHeight //Altura da tela
     lgTela = window.innerWidth //Largura da tela
@@ -60,15 +102,17 @@ function inicia(){//Inicializa as variáveis, as posições iniciais e o loop
     nave.style.top += posY+'px'
     nave.style.left += posX+'px'
 
-    vida = 250
+    vida = 300
 
-    contbombas= 50
+    contbombas= 100
 
     tmpq = setInterval(criaBomba, 2000)// Cria bombas a cada 2 segundos
 
     loop() // Chama o loop principal do jog
 
 }
+
+
 
 
 function controlaJog(){//Muda a posição da nave com base no presssionament das teclas
@@ -87,6 +131,7 @@ function loop(){//Função principal, chama as funções e atualiza os procedime
         controleTiros()
         controlaBombas()
     }
+    gerenciaGame()
     frame = requestAnimationFrame(loop)
 }
 
@@ -130,6 +175,9 @@ function criaBomba(){//Cria as bombas
     if(jogo){
         var y = 0
         var x = Math.random()*lgTela-50
+        if(x<=300){
+            x+=300
+        }
         var bomba = document.createElement('img')
         var atb1 = document.createAttribute('class')
         var atb2 = document.createAttribute('style')
@@ -157,6 +205,7 @@ function controlaBombas(){//Move e remove as bombas
             posi += velB
             bombastotal[i].style.top = posi+'px'
             if(posi > alTela){
+                vida -= 20
                 bombastotal[i].remove()
             }
         }
@@ -207,4 +256,8 @@ function animaExplosao(x, y){
     document.getElementById('som'+ie).play()
     ie++
 
+}
+
+function atualizaPagina(){
+    location.reload()
 }

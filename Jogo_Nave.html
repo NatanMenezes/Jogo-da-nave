@@ -9,6 +9,9 @@
 
     <style>
         
+        body{
+            overflow: hidden;
+        }
         #painel{
             width: 1100px;
             height: 647px;
@@ -33,6 +36,62 @@
             background-color: black;
             position: absolute;
         }
+        #barra{
+            font-family: fantasy;
+            color: white;
+            background-color: rgb(67, 67, 255);
+            width:300px;
+            height: 30px;
+        }
+        #medidor{
+
+            position: absolute;
+            left: -110px;
+            border: 1px solid black;
+            width: 300px;
+            height: 30px;
+            background-color: silver;
+        }
+        .msgPrincipal{
+            text-align: center;
+        }
+        .msg{
+            
+            padding: 20px;
+            width: 350px;
+            height: 350px;
+            position: absolute;
+            left: 35%;
+            top: 25%;
+        }
+        #msgInicial{
+            color: white;
+            display:block;
+            background-color: rgb(255, 174, 0);
+        }
+        #msgVitoria{
+            background-color: blue;
+            color: white;
+            display: none;
+        }
+        #msgDerrota{
+            color: white;
+            background-color: red;
+            display: none;
+        }
+        .btn{
+            width: 200px;
+            height: 50px;
+            border: none;
+            background-color: silver;
+            position: relative;
+            left: 80px;
+            top: 85px;
+            cursor: pointer;
+        }
+        #btnDer{
+            top: 60px;
+        }
 
     
     
@@ -40,11 +99,33 @@
     </style>
 </head>
 <body>
+
     <section id="painel">
-        <div id="barra"></div>
-        <div id="nave"><img src="nave.gif" alt="imgnave" id="imgnave"></div>
-        <div id="missel"></div>
+    <div id="medidor"><div id="barra">Vida do planeta</div></div>
+
+    <div id="nave"><img src="nave.gif" alt="imgnave" id="imgnave"></div>
+
+    <div id="missel"></div>
+
+    <div id="msgVitoria" class="msg">
+        <h1 id="msgPrincipalVit" class="msgPrincipal">Parabéns! Você salvou o planeta</h1><br>
+        <h2>Obrigado pela sua visita! Clique no botão abaixo para jogar novamente</h2>
+        <button id="btnVit" class="btn" onclick="atualizaPagina()">Jogar Novamente</button>
+    </div>
     </section>
-    <div id="msg"><button id="btn">Jogar Novamente</button></div>
+
+    <div id="msgInicial" class="msg">
+        <h1 id="msgPrincipalInicial" class="msgPrincipal">Salve o planeta</h1><br>
+        <h2>O planeta está prestes a sofrer uma ataque misterioso! Só você pode salvá-lo</h2>
+        <button id="btnIni" class="btn" onclick="comecaJogo()">Começar</button>
+    </div>
+
+    <div id="msgDerrota" class="msg">
+        <h1 id="msgPrincipalDer" class="msgPrincipal">Planeta destruído! Você perdeu</h1><br>
+        <h2>Obrigado pela sua visita! Clique no botão abaixo para jogar novamente</h2>
+        <button id="btnDer" class="btn" onclick="atualizaPagina()">Jogar Novamente</button>
+
+    </div>
+
 </body>
 </html>
